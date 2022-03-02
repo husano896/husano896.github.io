@@ -13,10 +13,11 @@ div.container {
 	min-width: 320px;
 	margin: 8px;
     min-height: 90vh;
-    background-image: url('imgs/bg.jpg');
+    background: url('imgs/bg.gif');
 	background-size: auto 60%;
-	background-position: right bottom;
+	background-position: 60% 75%;
 	background-repeat: no-repeat;
+	background-attachment: fixed;
     overflow-y: hidden;
 }
 
@@ -38,4 +39,8 @@ div.container {
 }
 * {
     color: white;
+}
+
+a {
+	filter: 
 }
