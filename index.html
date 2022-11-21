@@ -16,21 +16,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css">
   <!-- Tocas JS：模塊與 JavaScript 函式 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
+  <!-- 壓扁的i18n js -->
+	<script src="https://cdn.jsdelivr.net/gh/nd1012/HTML-i18n/src/html-i18n.min.js"></script>
 </head>
 
-<body>
+<body class="index">
 
   <div class="container">
     <div style="overflow-y: auto">
-      <div class="ts header">
-        <h3 class="unstyled">xFly Dragon</h3>
-        <span>Github home</span>
-      </div>
-
+	  <iframe title="header" src="header.html"></iframe>
       <div id="about">
         <span><i class="user icon"></i> About</span>
         <blockquote>
-          Frontend dev., Rhythm game charter, furry with <a href="imgs/fursona.jpg">dragon fursona</a>.
+          Frontend dev., Rhythm game charter, furry with <a href="ref" target="_blank">dragon fursona</a>.
           <br />
           Tetris & arcade rhythm game player.<br />
           <br />
@@ -89,24 +87,7 @@
       <div id="contacts">
         <span><i class="comment outline icon"></i> Contacts</span>
         <br /><br />
-        <a target="_blank" href="https://github.com/husano896">
-          <h2><i class="github square icon"></i></h2>
-        </a>
-
-        <a target="_blank" href="https://www.facebook.com/xFly.Dragon/">
-          <h2><i class="facebook square icon"></i></h2>
-        </a>
-
-        <a target="_blank" href="https://twitter.com/xFly_Dragon">
-          <h2><i class="twitter square icon"></i></h2>
-        </a>
-        <a target="_blank" href="https://www.youtube.com/channel/UCXv6WzfcEYoaOwZR5fKg2ng">
-          <h2><i class="youtube play icon"></i></h2>
-        </a>
-        <a target="_blank" href="https://ko-fi.com/xflydragon">
-          <h2><i class="coffee icon"></i></h2>
-        </a>
-
+        <iframe title="contacts" class="contacts" src="contacts.html"></iframe>
       </div>
       <br />
       <div id="legacy">
