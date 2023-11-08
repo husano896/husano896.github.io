@@ -1,7 +1,8 @@
-body {
-    width: 100%;
-    height: 100%;
+html, body {
+    width: 100dvw;
+    height: 100dvh;
     background-color: transparent;
+    overflow: auto;
 }
 
 body.index {
@@ -22,7 +23,8 @@ div.container {
 
     width: 50vw;
     min-width: 320px;
-    margin: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     background: url('imgs/bg.gif');
     background-size: auto 60%;
     background-position: 60% 75%;
@@ -33,7 +35,7 @@ div.container {
 
 div.anim-container {
     width: 100%;
-    height: 100%;
+    height: 100dvh;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -42,8 +44,9 @@ div.anim-container {
     z-index: 1;
     pointer-events: none;
     background: black;
-    animation: 3s ease-out animContainer;
     opacity: 0;
+    animation: 3s ease-out animContainer;
+    overflow: hidden;
 }
 
 div.anim-container .x-mark {
@@ -82,6 +85,7 @@ div.anim-container span {
 
 @keyframes animContainer {
     0% {
+        display: flex;
         pointer-events: all;
         opacity: 1;
     }
@@ -118,3 +122,28 @@ div.anim-container span {
         transform: scale(16);
     }
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 1px grey;
+    border-radius: 4px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(127, 127, 127, 0.5);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(192, 192, 192, 0.75);
+    border-radius: 4px;
+  }
+  
