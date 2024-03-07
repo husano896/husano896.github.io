@@ -1,0 +1,93 @@
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100dvh;
+    align-items: center;
+    justify-content: center;
+    background: url(bg.jpg);
+    background-color: rgba(0, 0, 0, 0.35);
+    background-blend-mode: color;
+    background-size: cover;
+}
+
+.容器 {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 75%;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (orientation: portrait) {
+    .容器 {
+        width: 100%;
+    }
+}
+
+.kc們 {
+    display: flex;
+    flex-direction: row;
+    gap: -5%;
+    width: 100%;
+}
+
+.kc {
+    width: 20%;
+    animation: 1.5s swinnnnng ease-in-out infinite;
+}
+
+.reveRse {
+    transform: rotateY(180deg);
+}
+
+.kc.reveRse {
+    animation: 1.5s swinnnnng-reverse ease-in-out infinite;
+}
+
+.沙發 {
+    display: flex;
+    flex-direction: row;
+    background: url(sofa.png);
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: -2.5%;
+    z-index: 1;
+}
+
+.小藍龍 {
+    width: 25%;
+    margin-top: 2.5%;
+    margin-bottom: 5%;
+}
+
+@keyframes swinnnnng {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(25%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes swinnnnng-reverse {
+    0% {
+        transform: translateY(0) rotateY(180deg);
+    }
+
+    50% {
+        transform: translateY(25%) rotateY(180deg);
+    }
+
+    to {
+        transform: translateY(0) rotateY(180deg);
+    }
+}
