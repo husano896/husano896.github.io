@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     width: 100dvw;
     height: 100dvh;
     background-color: transparent;
@@ -12,10 +13,15 @@ body.index {
     flex-direction: column;
 }
 
-iframe.header,
+iframe[title="header"] {
+    width: 100%;
+    height: 72px;
+}
+
+
 iframe.contacts {
     width: 100%;
-    height: 32px;
+    height: 120px;
 }
 
 div.container {
@@ -128,22 +134,35 @@ div.anim-container span {
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     box-shadow: inset 0 0 1px grey;
     border-radius: 4px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: rgba(127, 127, 127, 0.5);
     border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+::-webkit-scrollbar-thumb:hover {
     background: rgba(192, 192, 192, 0.75);
     border-radius: 4px;
-  }
-  
+}
+
+.x-rounded-button {
+    border-radius: 16px;
+    border: lightgray 1px solid;
+    display: block;
+    padding: 16px;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 4px 4px rgb(0, 211, 211, 0.35);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: white;
+}
