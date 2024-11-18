@@ -1,0 +1,105 @@
+<html class="is-light">
+
+<head>
+  <title>網路上叮嚀要保暖的部位那麼多，哪個才是我最需要注意的地方呢？ </title>
+  <!-- 核心：Tocas UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas/5.0.1/tocas.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas/5.0.1/tocas.min.js"></script>
+
+  <!-- 字體：Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- 啟用：響應式設計 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <style>
+    body {
+      background-color: #FFA726;
+      color: black;
+    }
+
+    .hashtag {
+      color: #994100
+    }
+  </style>
+</head>
+
+<body>
+  <br />
+  <br />
+  <div class="ts-container is-narrow" style="text-align: center;">
+    網路上叮嚀要保暖的部位那麼多，哪個才是我最需要注意的地方呢？
+    <br />
+    <br />
+    寳文中醫診所陳宜君醫師關心您
+    <br />
+    <span class="hashtag">#狼郎中</span>
+    <br />
+    <hr />
+    <br />
+    <div id="Questions" style="text-align: left;">
+
+    </div>
+    <br />
+    <button class="ts-button" onclick="onQuestionSubmit()" style="width: 50%;">送出</button>
+    <br />
+    <hr />
+    <br />
+    <div id="Answers" style="text-align: left;">
+
+    </div>
+
+  </div>
+  <script>
+    const questionsAndAnswers = [
+      ['頭暈頭痛', '戴個保暖的帽子吧！'],
+      ['落枕、肩頸僵硬', '注意後頸的保暖、不能讓風池穴吹到風！'],
+      ['肩膀手臂痠痛', '注意肩肘腕關節的保暖，來個運動護腕吧！'],
+      ['腰酸背痛', '注意不要讓風從領口灌進背部，有空就多熱敷腰！'],
+      ['脹氣、腸胃不舒服', '保護好肚臍！那可是中醫的神闕穴呢！'],
+      ['膝蓋關節痛', '需要頻繁站立坐下的話強烈建議要有個護膝！'],
+      ['腳踝不舒服(曾經扭傷)', '襪子一定要蓋住腳踝！船型襪out! '],
+      ['手腳冰冷', '戴手套 + 厚襪子，這題誰都會吧XD']
+    ];
+    const questionTemplate = (question, qId) => `
+    <label class="ts-checkbox">
+        <input type="checkbox" class="wumi-question" data-questionId="${qId}"/>
+        ${question}
+    </label> 
+    <br/>
+    <br/>
+    `
+    const answerTemplate = (question, answer) => `
+      <div class="ts-box is-negative is-start-indicated">
+        <div class="ts-header is-negative">${question}</div>
+        <div class="ts-content">${answer}</div>
+      </div>
+      <br/>
+    `
+
+    const questionsContainer = document.querySelector('div#Questions')
+    questionsAndAnswers.forEach((q, index) => {
+      questionsContainer.innerHTML += questionTemplate(q[0], index);
+    })
+
+    const answersContainer = document.querySelector('div#Answers')
+    function onQuestionSubmit() {
+      const checkedQuestions = document.querySelectorAll('input.wumi-question')
+      console.log(checkedQuestions);
+      answersContainer.innerHTML = '';
+      [...checkedQuestions].filter(q => q.checked).forEach(q => {
+        const qId = Number(q.getAttribute('data-questionId'))
+        const questionAndAnswer = questionsAndAnswers[qId]
+        if (questionAndAnswer) {
+          answersContainer.innerHTML += answerTemplate(questionAndAnswer[0], questionAndAnswer[1])
+        }
+      })
+      answersContainer.innerHTML += '<br/><br/><br/><br/>'
+      answersContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+  <!-- 烏咪的烏沒有口而且沒有犯罪！-->
+</body>
+
+</html>
