@@ -1,26 +1,31 @@
-<html class="is-light">
-
+<!DOCTYPE html>
+<html class="is-light" lang="zh-tw">
 <head>
-  <title>網路上叮嚀要保暖的部位那麼多，哪個才是我最需要注意的地方呢？ </title>
+  <title>天涼了要注意！ </title>
+  <meta name="description" content="天涼了要注意！" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="天涼了要注意！" />
+  <meta property="og:description" content="網路上叮嚀要保暖的部位那麼多，哪個才是我最需要注意的地方呢？" />
+  <meta property="og:url" content="https://xflydragon.cc/wumi_winter_beaware/" />
+  <meta property="og:site_name" content="天涼了要注意！" />
   <!-- 核心：Tocas UI -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas/5.0.1/tocas.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas/5.0.1/tocas.min.js"></script>
-
-  <!-- 字體：Noto Sans TC -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
-
   <!-- 啟用：響應式設計 -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <style>
     body {
-      background-color: #FFA726;
-      color: black;
+      background: linear-gradient(180deg, #FFF3E0, #FFE0B2);
+      color: #FF6D00;
     }
 
     .hashtag {
       color: #994100
+    }
+
+    input[type="checkbox"] {
+      box-shadow: 0px 2px gray;
     }
   </style>
 </head>
@@ -29,6 +34,8 @@
   <br />
   <br />
   <div class="ts-container is-narrow" style="text-align: center;">
+    天氣轉涼了要注意保暖喔！
+    <br />
     網路上叮嚀要保暖的部位那麼多，哪個才是我最需要注意的地方呢？
     <br />
     <br />
@@ -39,17 +46,15 @@
     <hr />
     <br />
     <div id="Questions" style="text-align: left;">
-
+      請問下列哪些是你比較常有的不舒服呢？（可複選）
+      <br /><br />
     </div>
     <br />
     <button class="ts-button" onclick="onQuestionSubmit()" style="width: 50%;">送出</button>
     <br />
     <hr />
     <br />
-    <div id="Answers" style="text-align: left;">
-
-    </div>
-
+    <div id="Answers" style="text-align: left;"></div>
   </div>
   <script>
     const questionsAndAnswers = [
@@ -72,12 +77,14 @@
     `
     const answerTemplate = (question, answer) => `
       <div class="ts-box is-negative is-start-indicated">
-        <div class="ts-header is-negative">${question}</div>
-        <div class="ts-content">${answer}</div>
-      </div>
+      
+        <div class="ts-content">
+          <div class="ts-header is-negative">${question}</div>
+          <p>${answer}</p>
+          </div>
+        </div>
       <br/>
     `
-
     const questionsContainer = document.querySelector('div#Questions')
     questionsAndAnswers.forEach((q, index) => {
       questionsContainer.innerHTML += questionTemplate(q[0], index);
