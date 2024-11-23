@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+  <title>就是某某轉換的東西</title>
+
+</head>
+
+<body>
+  <span>xml請放置於plugins/sdvx/webui/asset/json</span>
+  <input type="file" accept=".xml" onchange="onFileChange(event)" />
+
+  <script>
+    function onFileChange(ev) {
+      console.log(ev)
+      const file = ev.target.files[0]
+      if (!file) {
+        return;
+      }
+
+      var reader = new FileReader();
+      reader.onload = function () {
+        const text = reader.result;
+        const xmlContainer = document.createElement('div')
+        xmlContainer.innerHTML = text;
+        console.log(xmlContainer);
+
+
+        const musics = [...xmlContainer.querySelectorAll('music')]
+        const outputJSON = {
+          mdb: {
+            music: musics.map(m => ({
+              '@id': String(m.getAttribute('id')),
+              ...(m.querySelector('tag') ? { '@tag': m.querySelector('tag').getAttribute('id') } : {}),
+              'info': {
+                'title_name': String(m.querySelector('title_name').innerText),
+                'ascii': String(m.querySelector('ascii').innerText),
+                'version': {
+                  "@__type": "u8",
+                  "#text": String(m.querySelector('version').innerText),
+                },
+                'inf_ver': {
+                  "@__type": "u8",
+                  "#text": String(m.querySelector('inf_ver').innerText)
+                }
+              },
+              'difficulty': Object.fromEntries(
+                [...m.querySelector('difficulty').children].map(diff =>
+                  [diff.tagName.toLocaleLowerCase(),
+                  {
+                    difnum: {
+                      "@__type": "u8",
+                      "#text": String(diff.querySelector('difnum').innerText)
+                    },
+                    "radar": {
+                      "notes": {
+                        "@__type": "u8",
+                        "#text": String(diff.querySelector('notes').innerText)
+                      },
+                      "peak": {
+                        "@__type": "u8",
+                        "#text": String(diff.querySelector('peak').innerText)
+                      },
+                      "tsumami": {
+                        "@__type": "u8",
+                        "#text": String(diff.querySelector('tsumami').innerText)
+                      },
+                      "tricky": {
+                        "@__type": "u8",
+                        "#text": String(diff.querySelector('tricky').innerText)
+                      },
+                      "hand-trip": {
+                        "@__type": "u8",
+                        "#text": String(diff.querySelector('hand-trip').innerText)
+                      },
+                      "one-hand": {
+                        "@__type": "u8",
+                        "#text": String(diff.querySelector('one-hand').innerText)
+                      }
+                    }
+                  }
+                  ])
+              )
+            }))
+          }
+        }
+        console.log(outputJSON)
+        let fileName = "music_db.json";
+        let blob = new Blob([JSON.stringify(outputJSON)], {
+          type: "application/json",
+        });
+        var href = URL.createObjectURL(blob);
+        // 從 Blob 取出資料
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.href = href;
+        link.download = fileName;
+        link.click();
+      };
+      reader.readAsText(ev.target.files[0], 'shift-jis');
+    }
+  </script>
+</body>
