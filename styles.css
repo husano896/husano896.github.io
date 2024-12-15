@@ -36,7 +36,6 @@ div.container {
     background-position: 60% 75%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow-y: hidden;
 }
 
 div.anim-container {
