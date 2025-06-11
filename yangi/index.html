@@ -1,0 +1,44 @@
+<head>
+  <title>so fresh and delicious</title>
+  <style>
+    #container {
+      margin: auto;
+      contain: content;
+      width: 100%;
+      height: 100%;
+    }
+
+    #container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #container img[alt="y"] {
+      animation: 1s spin ease-in-out infinite;
+      transform-origin: 50% 41%;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotateX(0deg);
+      }
+
+      50% {
+        transform: rotateX(180deg);
+      }
+
+      to {
+        transform: rotateX(360deg);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="container">
+    <img src="1.png" />
+    <img src="2.png" alt="y" />
+  </div>
+</body>
