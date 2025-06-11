@@ -17,8 +17,12 @@
     #container img[alt="y"] {
       animation: 1s spin ease-in-out infinite;
       transform-origin: 50% 41%;
+      z-index: 1;
     }
-
+    #container img[alt="s"] {
+      animation: 2s spin2 linear infinite;
+      transform-origin: 50% 17%;
+    }
     @keyframes spin {
       0% {
         transform: rotateX(0deg);
@@ -32,6 +36,16 @@
         transform: rotateX(360deg);
       }
     }
+
+    @keyframes spin2 {
+      0% {
+        transform: rotateZ(0deg);
+      }
+
+      to {
+        transform: rotateZ(360deg);
+      }
+    }
   </style>
 
 </head>
@@ -40,5 +54,6 @@
   <div id="container">
     <img src="1.png" />
     <img src="2.png" alt="y" />
+    <img src="3.png" alt="s" />
   </div>
 </body>
