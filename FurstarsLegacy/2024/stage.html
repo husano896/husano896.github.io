@@ -1,0 +1,1651 @@
+<head>
+  <title>
+    Furstar 2024 Stage
+  </title>
+
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0;
+    }
+
+    /* 最底層點點背景 */
+    .furmit-furstars-stage-stat {
+      width: 100%;
+      height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: absolute;
+      transition: 5s ease-in-out;
+    }
+
+    /** 活動標題 */
+    .furmit-furstars-stage-stat .title {
+      position: absolute;
+      width: 20%;
+      transition: 3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      z-index: 1;
+    }
+
+    /** 最終對決 */
+    .text_finalvote,
+    .text_callout,
+    .text_midgame,
+    .text_tutorial,
+    .text_draw {
+      opacity: 0;
+      transition: 3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      width: 100%;
+      max-height: 0;
+    }
+
+    .scene-voting .text_callout,
+    .scene-midresult .text_midgame,
+    .scene-transition .text-midgame,
+    .scene-tutorial .text_tutorial,
+    .scene-prize .text_draw,
+    .scene-result .text_draw {
+      opacity: 1;
+      max-height: 40vh;
+    }
+
+    .tutorial {
+      position: absolute;
+      height: 50%;
+      width: 100%;
+      bottom: 10%;
+      animation: 45s linear tutorial infinite;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .scene-voting .text_callout {
+      width: 100%;
+      animation: 1s ease-in-out anim-blink infinite;
+    }
+
+    .scene-midresult,
+    .scene-transition {
+      .scores {
+        animation: 10s ease-in-out rotate-Y;
+      }
+
+      .scores span {
+        max-width: 100%;
+        animation-name: scoreSpanScale;
+        animation-duration: 12.5s;
+      }
+    }
+
+    @keyframes scoreSpanScale {
+
+      from,
+      80% {
+        font-size: 0
+      }
+
+      to {
+        font-size: 4vw;
+      }
+    }
+
+    .scene-lobby .title {
+      top: 20%;
+      width: 60%;
+      filter: drop-shadow(16px 16px #c43737ff) drop-shadow(16px 16px #232326aa);
+    }
+
+
+    .scene-lobby .scores {
+      gap: 100%;
+    }
+
+    .scene-showcase-black .scores,
+    .scene-showcase-red .scores,
+    .scene-prize:not(.draw) .scores {
+      gap: 0;
+    }
+
+    .scene-showcase-black .score_box .mark,
+    .scene-showcase-red .score_box .mark {
+      width: auto;
+      height: 75%;
+    }
+
+    .scene-showcase-black .score_box.red,
+    .scene-showcase-red .score_box.black {
+      position: absolute;
+    }
+
+    /** 非主視覺畫面時將標題放在上方 */
+    .furmit-furstars-stage-stat:not(.scene-lobby) .title {
+      top: 0%;
+    }
+
+    .scene-finalresult .text_finalvote {
+      opacity: 1;
+      max-height: 20vh;
+    }
+
+    .scene-result,
+    .scene-voting,
+    .scene-midresult,
+    .scene-transition,
+    .scene-finalresult,
+    .scene-prize {
+      .score_box {
+        opacity: 1;
+      }
+    }
+
+    .scene-voting .scores,
+    .scene-result .scores,
+    .scene-midresult .scores,
+    .scene-transition .scores,
+    .scene-finalresult .scores,
+    .scene-prize.draw .scores {
+      gap: 15%;
+    }
+
+    .scene-voting .scores {
+      animation: 2s ease-in-out anim-voting infinite;
+    }
+
+    .scene-showcase-red .score_box.red {
+      opacity: 1;
+    }
+
+    .scene-showcase-black .score_box.black {
+      opacity: 1;
+    }
+
+    .actions {
+      position: absolute;
+      top: 0;
+      display: flex;
+      flex-direction: row;
+      word-break: keep-all;
+      z-index: 10;
+    }
+
+    .texts {
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      z-index: 2;
+      width: 25%;
+      top: 35%;
+      position: absolute;
+      transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    .scores {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      position: absolute;
+      width: 100%;
+      gap: 100%;
+      top: 30%;
+      transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+      margin-top: -10vh;
+      height: -webkit-fill-available;
+      margin-bottom: 10%;
+    }
+
+    .score_box .mark {
+
+      contain: inherit;
+      filter: drop-shadow(0px 0px 8px white);
+      transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    .score_box.red img.team-name {
+      background: url(assets/furstars/teams/teambg_r.png);
+    }
+
+    .score_box.black img.team-name {
+      background: url(assets/furstars/teams/teambg_b.png);
+    }
+
+    img.team-name {
+      padding: 2.5%;
+      box-sizing: border-box;
+      opacity: 0;
+      display: none;
+    }
+
+    .scene-showcase-black,
+    .scene-showcase-red {
+      img.team-name {
+        opacity: 1;
+        display: block;
+      }
+    }
+
+    .score_box {
+      width: 100%;
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /*justify-content: end;*/
+
+      /*aspect-ratio: 1920 / 1927;*/
+      opacity: 0;
+      transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+      contain: layout;
+      gap: 5%;
+    }
+
+    .score_box span {
+      font-size: 4vw;
+      font-family: Futura;
+      transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+      padding: 48px 72px;
+      width: 20vw;
+      opacity: 0;
+      color: white;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% auto;
+      text-align: center;
+      display: none;
+    }
+
+    .scene-finalresult,
+    .scene-midresult,
+    .scene-result {
+      .score_box span {
+        display: block;
+        opacity: 1;
+      }
+    }
+
+    .score_box.red {
+      padding-right: 0;
+    }
+
+    .score_box.red span {
+      background-image: url(assets/furstars/score_r.png);
+    }
+
+    .score_box.black {
+      padding-left: 0;
+    }
+
+    .score_box.black span {
+      background-image: url(assets/furstars/score_b.png);
+    }
+
+    .scene-voting,
+    .scene-midresult {
+      .score_box {
+        flex-direction: row;
+        gap: 3%;
+      }
+
+      .score_box.black {
+        flex-direction: row-reverse;
+      }
+    }
+
+    .scene-showcase-black {
+      .score_box.red {
+        padding-right: 50vw;
+      }
+    }
+
+    .scene-showcase-red {
+      .score_box.black {
+        padding-left: 50vw;
+      }
+    }
+
+
+    .scene-prize:not(.draw) .score_box .mark {
+      width: 45%;
+    }
+
+    .scene-midresult .score_box .win-mark,
+    .scene-transition .score_box .win_mark {
+      animation: 10s ease-in-out midgame-winner;
+    }
+
+
+    .scene-prize {
+      .score_box {
+        display: flex;
+      }
+
+      .score_box:not(.winner) {
+        display: none;
+      }
+    }
+
+    .win-mark {
+      top: 0;
+      position: absolute;
+      display: none;
+      z-index: -2;
+      transform: translateY(-20%);
+      animation: 1s ease-in-out anim-blink infinite;
+    }
+
+    .scene-prize,
+    .scene-midresult {
+      .score_box.winner .win-mark {
+        display: block;
+      }
+    }
+
+    .scene-midresult img.team-name,
+    .scene-finalresult .score_box img.team-name,
+    .scene-transition img.team-name {
+      opacity: 0;
+    }
+
+    .scene-prize .score_box.winner img.team-name {
+      display: none;
+    }
+
+    /*
+.score_box::first-letter {
+    top: 16px;
+}*/
+
+    /** 分數更新時的跳動 */
+    .score_box.updated span {
+      font-size: 5vw;
+    }
+
+    .scores img {
+      width: 100%;
+    }
+
+    .strokeme {
+      text-shadow: -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff, 4px 4px 0 #fff;
+    }
+
+
+    * {
+      word-break: keep-all;
+    }
+
+
+    * {
+      transition: 1s ease-in-out;
+    }
+
+    @keyframes anim-scroll-top {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      to {
+        background-position: 0% 800%;
+      }
+    }
+
+    @keyframes anim-heartbeat {
+      0% {
+        filter: drop-shadow(0px 0px 0px black)
+      }
+
+      50% {
+        filter: drop-shadow(0px 0px 16px black)
+      }
+
+      to {
+        filter: drop-shadow(0px 0px 0px black)
+      }
+    }
+
+    @keyframes anim-size {
+      0% {
+        background-size: 100% auto;
+      }
+
+      50% {
+        background-size: 150% auto;
+      }
+
+      to {
+        background-size: 100% auto;
+      }
+    }
+
+    @keyframes anim-size-final {
+      0% {
+        background-size: 100% auto;
+      }
+
+      to {
+        background-size: 400% auto;
+      }
+    }
+
+    @keyframes final-champion-bang {
+      0% {
+        transform: scale(2) rotateY(0deg);
+        filter: drop-shadow(0px 10vh 10vw black);
+        top: -50%;
+        padding-bottom: 0;
+        padding-top: 0;
+
+      }
+
+      10% {
+        transform: scale(1.9) rotateY(180deg);
+      }
+
+      20% {
+        transform: scale(1.8) rotateY(360deg);
+      }
+
+      30% {
+        transform: scale(1.7) rotateY(540deg);
+      }
+
+      40% {
+        transform: scale(1.6) rotateY(720deg);
+      }
+
+      50% {
+        transform: scale(1.5) rotateY(900deg);
+      }
+
+      60% {
+        transform: scale(1.5) rotateY(1080deg);
+      }
+
+      90% {
+        transform: scale(1.25);
+        filter: drop-shadow(0px 0px 2vw black);
+      }
+
+      to {
+        transform: scale(1);
+        filter: drop-shadow(0px 0px 0 black);
+        top: 35%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+
+      }
+    }
+
+    @keyframes anim-blink {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes anim-text-stage-lr {
+      0% {
+        transform: rotate(-10deg) translate(-100vw, 0);
+      }
+
+      3% {
+        transform: rotate(-10deg) translate(0, 0);
+      }
+
+      97% {
+        transform: rotate(-10deg) translate(0, 0);
+      }
+
+      to {
+        transform: rotate(-10deg) translate(100vw, 0);
+      }
+    }
+
+    @keyframes anim-text-stage-rl {
+      0% {
+        transform: rotate(10deg) translate(100vw, 0);
+      }
+
+      3% {
+        transform: rotate(10deg) translate(0, 0);
+      }
+
+      97% {
+        transform: rotate(10deg) translate(0, 0);
+      }
+
+      to {
+        transform: rotate(10deg) translate(-100vw, 0);
+      }
+    }
+
+
+    @keyframes rotate-Y {
+      0% {
+        transform: rotateY(0deg);
+      }
+
+      15% {
+        transform: rotateY(180deg);
+      }
+
+      30% {
+        transform: rotateY(360deg);
+      }
+
+      45% {
+        transform: rotateY(540deg);
+      }
+
+      60% {
+        transform: rotateY(720deg);
+      }
+
+      67.5% {
+        transform: rotateY(900deg);
+      }
+
+      75% {
+        transform: rotateY(1080deg);
+      }
+
+      82.5% {
+        transform: rotateY(1260deg);
+      }
+
+      90% {
+        transform: rotateY(1440deg);
+      }
+
+      to {
+        transform: rotateY(1440deg);
+      }
+    }
+
+    @keyframes midgame-winner {
+      0% {
+        opacity: 0;
+      }
+
+      90% {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes good {
+      0% {
+        transform: scale(1);
+      }
+
+      5% {
+        transform: scale(1.25) translateY(8vh)
+      }
+
+      10% {
+        transform: scale(1.25) translateY(10vh)
+      }
+
+      15% {
+        transform: scale(1.25) translateY(2vh)
+      }
+
+      20% {
+        transform: scale(1.25) translateY(0vh)
+      }
+
+      25% {
+        transform: scale(1.25) translateY(8vh)
+      }
+
+      30% {
+        transform: scale(1.25) translateY(10vh)
+      }
+
+      35% {
+        transform: scale(1.25) translateY(2vh)
+      }
+
+      40% {
+        transform: scale(1.25) translateY(0vh)
+      }
+
+      45% {
+        transform: scale(1.25) translateY(8vh)
+      }
+
+      50% {
+        transform: scale(1.25) rotate(0deg) translateY(10vh);
+      }
+
+      55% {
+        transform: scale(1.25) rotate(-720deg) translateY(2vh);
+      }
+
+      60% {
+        transform: scale(1.25) rotate(-1440deg) translateY(0vh);
+      }
+
+      70% {
+        transform: scale(1.25) rotate(-2880deg);
+      }
+
+      80% {
+        transform: scale(1.25) rotate(-4320deg);
+      }
+
+      to {
+        transform: scale(1) rotate(4320deg);
+      }
+    }
+
+    @keyframes anim-voting {
+      0% {
+        width: 75%;
+      }
+
+      50% {
+        width: 80%;
+      }
+
+      to {
+        width: 75%;
+      }
+    }
+
+    @keyframes good-text {
+      0% {
+        opacity: 1;
+        transform: rotate(-30deg) translateX(0);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: rotate(-30deg) translateX(-20vw);
+      }
+
+      to {
+        opacity: 1;
+        transform: rotate(-30deg) translateX(0);
+      }
+
+    }
+
+    @keyframes good-text-r {
+      0% {
+        opacity: 1;
+        transform: rotate(30deg) translateX(0);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: rotate(30deg) translateX(20vw);
+      }
+
+      to {
+        opacity: 1;
+        transform: rotate(30deg) translateX(0);
+      }
+    }
+
+    @keyframes tutorial {
+
+      0% {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/1.png);
+      }
+
+      2% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/1.png);
+      }
+
+      24% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/1.png);
+      }
+
+      25% {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/1.png);
+      }
+
+      25.1% {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/2.png);
+      }
+
+      27% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/2.png);
+      }
+
+      49% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/2.png);
+      }
+
+      50% {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/2.png);
+      }
+
+      50.1% {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/3.png);
+      }
+
+      52% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/3.png);
+      }
+
+      74% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/3.png);
+      }
+
+      75% {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/3.png);
+      }
+
+      75.1% {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/4.png);
+      }
+
+      77% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/4.png);
+      }
+
+      99% {
+        opacity: 1;
+        background-image: url(assets/furstars/tutorial/4.png);
+      }
+
+      99.9% {
+
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/4.png);
+      }
+
+      to {
+        opacity: 0;
+        background-image: url(assets/furstars/tutorial/1.png);
+      }
+    }
+
+    @font-face {
+      font-family: Futura;
+      src: url(assets/fonts/futura.ttf);
+    }
+
+    /** 2024新增： */
+    .bg-people {
+      position: absolute;
+      bottom: -1%;
+      width: 100%;
+      animation: 1s people_bouncing ease-in-out infinite;
+      transform: scale(1);
+      transform-origin: center end;
+      display: none;
+    }
+
+    .scene-lobby {
+      .bg-people {
+        display: block;
+      }
+    }
+
+    @keyframes people_bouncing {
+      0% {
+        bottom: -2.5%;
+      }
+
+      50% {
+        bottom: 0%;
+      }
+
+      to {
+        bottom: -2.5%;
+      }
+    }
+
+    .bg-dots {
+      background: url(assets/furstars/bg_dots.png);
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .bg-thunder {
+      width: 100%;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    /** 場景_主視覺 */
+    .scene-lobby,
+    .scene-tutorial,
+    .scene-midresult,
+    .scene-transition,
+    .scene-result,
+    .scene-prize {
+      .bg-dots {
+        animation: 180s linear anim-scroll-top infinite;
+      }
+    }
+
+    /** 場景_主視覺 */
+    .scene-voting,
+    .scene-finalresult {
+      .bg-dots {
+        animation: 30s linear anim-scroll-top infinite;
+      }
+    }
+
+    .bg-circle {
+      position: absolute;
+      margin: auto;
+      pointer-events: none;
+    }
+
+    .scene-showcase-black .bg-circle {
+      animation: 240s bg-circle-left-rotate infinite;
+    }
+
+    .scene-showcase-red .bg-circle {
+      animation: 240s bg-circle-right-rotate infinite;
+    }
+
+    .texts_1 {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
+    .scene-midresult {
+      .texts_1 {
+        bottom: 5%;
+      }
+    }
+
+    @keyframes bg-circle-left-rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes bg-circle-right-rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .bg-thunder {
+      animation: 10s linear infinite thunder-blink;
+      display: none;
+      z-index: 1;
+    }
+
+    .scene-lobby .bg-thunder {
+      display: block;
+    }
+
+    @keyframes thunder-blink {
+
+      0%,
+      40% {
+        filter: brightness(1);
+        transform: rotateX(15deg);
+      }
+
+      20%,
+      60% {
+        filter: brightness(0.25);
+        transform: rotateX(-15deg);
+      }
+
+      80%,
+      82%,
+      84%,
+      86%,
+      88%,
+      90%,
+      92%,
+      94%,
+      96%,
+      98%,
+      100% {
+        filter: brightness(1);
+      }
+
+      81%,
+      83%,
+      85%,
+      87%,
+      89%,
+      91%,
+      93%,
+      95%,
+      97%,
+      99% {
+        filter: brightness(0.5);
+      }
+
+    }
+
+    .stage-info {
+      display: none;
+      flex-direction: row;
+      justify-content: space-evenly;
+      position: absolute;
+      gap: 25%;
+      top: 5%;
+      width: 100%;
+      height: 10vh;
+
+    }
+
+    .scene-showcase-black,
+    .scene-showcase-red {
+      .stage-info {
+        display: flex;
+      }
+    }
+
+    /** 最終分數演出用：所有隊伍 */
+    .all-teams {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+
+      .teams {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+
+        img {
+          width: 50%;
+        }
+      }
+    }
+
+    /** 最終分數 */
+    /**
+    腳本：
+    Total 20秒
+
+    teams
+    0~7秒 所有隊伍名稱展出放大展出後消失
+
+    螢幕
+    0~6.5秒 逐漸變亮
+    6.5~7.5秒 變亮到全白
+    7.5~8.5秒 全白到可見的亮
+    8.5~11秒 可見亮到正常亮度
+    11~11.25秒 被勝利隊伍砸到畫面遠離鏡頭(scale 0.75)
+    11.25~13秒 畫面回歸正常鏡頭
+
+    scores
+
+    勝利隊伍
+    7.5~10.5秒 超級放大 旋轉 並逐漸變回原本尺寸 
+    10.5~11秒 砸下去
+    
+    勝利隊伍+其他隊伍+分數
+    13秒~14秒 出現 並將整個隊伍旋轉rotate3d(1, -1, -0.5, 30deg)
+    17~20秒 旋轉歸0
+
+    閃電
+    7.5~10.5秒 跟著勝利隊伍放大並縮小
+    10.5秒~11秒 放到最小(scale 0)
+    11~14秒 放大到遠離鏡頭(scale 1000+opacity 0)
+*/
+    .scene-finalresult {
+      animation: 20s ease-out finalresult-screen;
+
+      .teams {
+        animation-delay: calc(var(--var-delay) * 0.35);
+        animation-name: finalresult-teams;
+        animation-duration: calc(7s - var(--var-delay) * 0.35);
+        transform: scale(0);
+        filter: drop-shadow(0px 0px 8px black);
+      }
+
+      .score_box.winner {
+        animation-delay: 7.5s;
+        animation-name: finalresult-champion;
+        animation-duration: 3.5s;
+      }
+
+      .score_box:not(.winner) {
+        animation: finalresult-notwinner 20s;
+      }
+
+      .scores {
+        animation: finalresult-scores 20s ease-out;
+      }
+
+      .score_box span {
+        animation: finalresult-scorediv 20s;
+      }
+
+      img.bg-people {
+        animation: finalresult-bg-people 20s;
+      }
+    }
+
+    /** 平手時須額外處理 */
+    .scene-finalresult.draw {}
+
+    @keyframes finalresult-teams {
+      from {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(2);
+      }
+
+      75% {
+        transform: scale(1.5);
+      }
+
+      to {
+        transform: scale(0);
+      }
+    }
+
+    /**
+    螢幕
+    0~6.5秒 逐漸變亮
+    6.5~7.5秒 變亮到全白
+    7.5~8.5秒 全白到可見的亮
+    8.5~11秒 可見亮到正常亮度
+    11~11.25秒 被勝利隊伍砸到畫面遠離鏡頭(scale 0.75)
+    11.25~13秒 畫面回歸正常鏡頭
+ */
+    @keyframes finalresult-screen {
+
+      from,
+      to {
+        filter: brightness(1);
+      }
+
+      32.5% {
+        filter: brightness(1.5);
+      }
+
+      37.5% {
+        filter: brightness(100);
+      }
+
+      42.5% {
+        filter: brightness(1.5)
+      }
+
+      55% {
+        filter: brightness(1);
+        transform: scale(1);
+      }
+
+      56.25% {
+        transform: scale(0.75);
+      }
+
+      60% {
+        transform: scale(0.85);
+      }
+
+      65% {
+        transform: scale(1);
+      }
+    }
+
+    /**
+
+    勝利隊伍
+    7.5~10.5秒 超級放大 旋轉 並逐漸變回原本尺寸 
+    10.5~11秒 砸下去
+     */
+    @keyframes finalresult-champion {
+      0% {
+        transform: scale(2) rotateY(0deg);
+        filter: drop-shadow(0px 10vh 10vw black);
+        top: -50%;
+        padding-bottom: 0;
+        padding-top: 0;
+      }
+
+      10% {
+        transform: scale(1.9) rotateY(180deg);
+      }
+
+      20% {
+        transform: scale(1.8) rotateY(360deg);
+      }
+
+      30% {
+        transform: scale(1.7) rotateY(540deg);
+      }
+
+      40% {
+        transform: scale(1.6) rotateY(720deg);
+      }
+
+      50% {
+        transform: scale(1.5) rotateY(900deg);
+      }
+
+      60% {
+        transform: scale(1.5) rotateY(1080deg);
+      }
+
+      90% {
+        transform: scale(1.25);
+        filter: drop-shadow(0px 0px 2vw black);
+      }
+
+      to {
+        transform: scale(1);
+        filter: drop-shadow(0px 0px 0 black);
+        top: 35%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+
+      }
+    }
+
+    /**
+    勝利隊伍
+    7.5~10.5秒 超級放大 旋轉 並逐漸變回原本尺寸 
+    10.5~11秒 砸下去
+
+    勝利隊伍+其他隊伍+分數
+    13秒~14秒 出現 並將整個隊伍旋轉rotate3d(1, -1, -0.5, 30deg)
+    17~20秒 旋轉歸0
+ */
+    @keyframes finalresult-scores {
+      0% {
+        opacity: 0;
+        gap: 0%;
+      }
+
+      37.5% {
+        opacity: 0;
+      }
+
+      37.6% {
+        opacity: 1;
+      }
+
+      65% {
+        transform: rotate3d(0, 0, 0, 0deg);
+        gap: 0%;
+      }
+
+      70% {
+        transform: rotate3d(1, -1, -0.5, 30deg);
+        gap: 20%;
+      }
+
+      to {
+        transform: rotate3d(0, 0, 0, 0deg);
+      }
+    }
+
+    /**
+   
+    勝利隊伍+其他隊伍+分數
+    13秒~14秒 出現 並將整個隊伍旋轉rotate3d(1, -1, -0.5, 30deg)
+    17~20秒 旋轉歸0
+ */
+    @keyframes finalresult-notwinner {
+
+      from,
+      65% {
+        max-width: 0%;
+        max-height: 0%;
+      }
+
+      70% {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    @keyframes finalresult-scorediv {
+
+      from,
+      65% {
+        max-width: 0%;
+        max-height: 0%;
+        opacity: 0;
+      }
+
+      70% {
+        opacity: 1;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    @keyframes finalresult-bg-people {
+      from {
+        display: block;
+      }
+
+      34.9% {
+        display: block;
+      }
+
+      35%,
+      to {
+        display: none;
+      }
+    }
+
+    .scene-good .title {
+      opacity: 0;
+    }
+
+
+    .good {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+
+      .p100 {
+        position: absolute;
+        display: flex;
+        width: 20vw;
+        height: 100%;
+        flex-direction: column;
+        justify-content: end;
+        top: -20%;
+        z-index: 1;
+
+        .p100bottom {
+          animation-name: good-p100-bottom;
+          animation-timing-function: ease-in-out;
+          animation-duration: 1.5s;
+          animation-iteration-count: infinite;
+
+        }
+      }
+
+      .buffet {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        top: 10%;
+        width: 100%;
+        transform-origin: top center;
+        animation: good-buffet 1s ease-in-out infinite;
+      }
+    }
+
+    .buffet們 {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      position: absolute;
+      bottom: 10%;
+    }
+
+    .kuan {
+      width: 25%;
+      animation: 1.5s swinnnnng ease-in-out infinite;
+      z-index: 2;
+      margin: -5%;
+      aspect-ratio: 1.25;
+    }
+
+    .reveRse {
+      transform: rotateY(180deg);
+    }
+
+    .kuan.reveRse {
+      animation: 1.5s swinnnnng-reverse ease-in-out infinite;
+    }
+
+    @keyframes good-p100-bottom {
+
+      from,
+      to {
+        height: 5%;
+      }
+
+      50% {
+        height: 50%;
+      }
+    }
+
+    @keyframes good-buffet {
+
+      from,
+      to {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(2);
+      }
+    }
+
+    @keyframes swinnnnng {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(25%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes swinnnnng-reverse {
+      0% {
+        transform: translateY(0) rotateY(180deg);
+      }
+
+      50% {
+        transform: translateY(25%) rotateY(180deg);
+      }
+
+      to {
+        transform: translateY(0) rotateY(180deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <div id="app">
+
+    <div class="furmit-furstars-stage-stat"
+      :class="scene + ` stage_${stage}` + (score_black === score_red ? ' draw' : '')">
+      <!-- 旋轉背景!? -->
+      <img class="bg-circle" src="assets/furstars/bg_circle.png" />
+      <!-- 點點換方式處理~ -->
+      <div class="bg-dots"></div>
+      <!-- 關卡與目前隊伍 -->
+      <div class="stage-info">
+        <img
+          :src="`assets/furstars/stages/stage${String(stage).padStart(2, '0')}${(scene.includes('red') ? 'r' : 'b')}.png`" />
+        <img :src="`assets/furstars/teams/team_${(scene.includes('red') ? 'r' : 'b')}.png`" />
+      </div>
+      <!-- 標題 -->
+      <img src="assets/furstars/title.png" class="title" />
+      <div class="texts">
+        <img class="text_tutorial" src="assets/furstars/tutorial/header.png" />
+        <img class="text_finalvote" src="assets/furstars/tex_finalvote.png" />
+
+        <img class="text_draw" v-if="score_black === score_red" src="assets/furstars/text_draw.png" />
+      </div>
+      <!-- 置中文字-->
+      <div class="texts_1">
+        <img class="text_midgame" src="assets/furstars/tex_midgame.png" />
+        <img class="text_callout" src="assets/furstars/tex_callout.png" />
+      </div>
+      <!-- 最終結果發表演出用：所有隊伍名單 -->
+      <div v-if="scene === 'scene-finalresult'" class="all-teams">
+        <div v-for="(_, index) in new Array(13)" :class="`teams teams-${index}`"
+          :style="`--var-index:${index};--var-delay:${index}s`">
+          <img :src="`assets/furstars/teams/${index + 1}_black.png`" />
+          <img :src="`assets/furstars/teams/${index + 1}_red.png`" />
+        </div>
+      </div>
+      <!-- 教學用背景 -->
+      <div v-if="scene === 'scene-tutorial'" class="tutorial"></div>
+      <div class="scores">
+        <div class="score_box red"
+          :class="((score_red > score_black || score_black === score_red && score_red > 0) ? ' winner' : '')">
+          <span>
+            {{ scene === 'scene-voting' ? '???' : score_red }}
+          </span>
+          <div class="mark">
+            <img src="assets/furstars/mark_red_solid.png" />
+            <img class="win-mark" src="assets/furstars/win_mark.png" />
+          </div>
+          <img :src="`assets/furstars/teams/${stage}_red.png`" class="team-name" alt="furstar-team-red" />
+
+        </div>
+        <div class="score_box black"
+          :class="((score_black > score_red || score_black === score_red && score_black > 0) ? ' winner' : '')">
+          <span>
+            {{ scene === 'scene-voting' ? '???' : score_black }}
+          </span>
+          <div class="mark">
+            <img src="assets/furstars/mark_black_solid.png" />
+            <img class="win-mark" src="assets/furstars/win_mark.png" />
+          </div>
+          <img :src="`assets/furstars/teams/${stage}_black.png`" alt="furstar-team-black" class="team-name" />
+        </div>
+      </div>
+      <!-- Debug用 -->
+      <div v-if="debug === true" class="actions">
+        <select v-model="scene">
+          <option v-for="(item, index) in [
+            'scene-lobby',
+            'scene-tutorial',
+            'scene-showcase-red',
+            'scene-showcase-black',
+            'scene-result',
+            'scene-midresult',
+            'scene-finalresult',
+            'scene-prize',
+            'scene-good',
+            'scene-transition']" :value="item">
+            {{ item }}
+          </option>
+        </select>
+        <select v-model="stage">
+          <option v-for="(item, index) in (new Array(13).fill(0))" :value="index + 1">
+            Stage {{ index + 1 }}
+          </option>
+        </select>
+        <label>
+          Black score
+          <input v-model="score_black" type="number" />
+        </label>
+        <label>
+          Red score
+          <input v-model="score_red" type="number" />
+        </label>
+        <button @click="score_red_display = 0; score_black_display = 0; countdown = 20;">清除顯示數字</button>
+      </div>
+      <!-- 2024新增：跳舞的人們！-->
+      <img class="bg-people" src="assets/furstars/bg_people.png" style="width: 100%;" />
+      <!-- 電電⚡️ -->
+      <img class="bg-thunder" src="assets/furstars/bg_thunder.png">
+      <!-- 2024年彩蛋 -->
+      <div class="good" v-if="scene === 'scene-good'">
+        <!-- 左青龍100-->
+        <div class="p100" style="left: 0;transform: rotateY(180deg);">
+          <img src="assets/furstars/100top.png" />
+          <img class="p100bottom" src="assets/furstars/100bottom.png" style="animation-delay: 0.75s;" />
+        </div>
+        <!-- 右白虎100-->
+        <div class="p100" style="right: 0;">
+          <img src="assets/furstars/100top.png" />
+          <img class="p100bottom" src="assets/furstars/100bottom.png" />
+        </div>
+        <!-- Buffet -->
+        <div class="buffet">
+          <img src="assets/furstars/buffet.png" />
+        </div>
+        <!-- Buffet們 -->
+        <div class="buffet們">
+
+          <img class="kuan" src="assets/furstars/kuan.png" />
+          <img class="kuan" src="assets/furstars/kuan.png" style="animation-delay: 0.25s;" />
+          <img class="kuan" src="assets/furstars/kuan.png" style="animation-delay: 0.5s;" />
+          <img class="kuan reveRse" src="assets/furstars/kuan.png" style="animation-delay: 0.75s;" />
+          <img class="kuan reveRse" src="assets/furstars/kuan.png" style="animation-delay: 1s;" />
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { createApp, ref, onMounted, onUnmounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        /**
+             * 目前場景
+             * 
+             * @type { 
+               'scene-lobby' |          // 活動主視覺
+               'scene-tutorial' |       // 遊戲規則說明
+               'scene-showcase-red' |   // 紅色側
+               'scene-showcase-black' | // 黑色側
+               'scene-voting' |         // 投票中
+               'scene-result' |         // 結果
+               'scene-midresult' |      // 中場預覽
+               'scene-finalresult' |    // 最終結果
+               'scene-prize'            // 冠軍
+               'scene-transition'       // 只顯示兩對mark的過場
+              }
+             *
+             * @link
+             */
+        const scene = ref('scene-lobby');
+        /**
+         * 紅隊分數
+         * @type {number}
+         */
+        const score_red = ref(456);
+        /**
+         * 黑隊分數
+         * @type {number}
+         */
+        const score_black = ref(456);
+        /**
+         * 紅隊顯示中分數
+         * @type {number}
+         */
+        const score_red_display = ref(0);
+        /**
+         * 嘿隊顯示中分數
+         * @type {number}
+         */
+        const score_black_display = ref(0);
+        /**
+         * 目前第幾輪
+         * @type {number}
+         */
+        const stage = ref(1);
+        /**
+         * 倒數
+         * @type {number}
+         */
+        const countdown = ref(60);
+        /**
+         * 每秒更新API的觸發器
+         * @type {NodeJS.Timeout}
+         */
+        const update_interval = ref(null);
+
+        /** 每秒更新倒數的觸發器 */
+
+        /**
+         * 每秒更新API的觸發器
+         * @type {NodeJS.Timeout}
+         */
+        const coutdown_interval = ref(null);
+
+        /** 
+         * 開啟debug選單)
+         * @type {string} 
+         */
+        const debug = true;
+
+        const onCountdownTick = () => {
+          if (countdown.value > 0) {
+            countdown.value -= 1;
+          }
+        };
+
+        const onFrameUpdate = () => {
+
+          // 推動數字滾動更新
+          if (score_red.value !== score_red_display.value) {
+            score_red_display.value += score_red.value > score_red_display.value ? 1 : -1;
+          }
+          if (score_black.value !== score_black_display.value) {
+            score_black_display.value += score_black.value > score_black_display.value ? 1 : -1;
+          }
+          window.requestAnimationFrame(onFrameUpdate);
+        };
+
+        onMounted(() => {
+          window.requestAnimationFrame(onFrameUpdate);
+          coutdown_interval.value = setInterval(onCountdownTick, 1000);
+        })
+
+        onUnmounted(() => {
+          clearTimeout(update_interval.value);
+          clearInterval(coutdown_interval.value);
+        })
+
+        return {
+          scene,
+          score_red,
+          score_black,
+          score_red_display,
+          score_black_display,
+          stage,
+          countdown,
+          update_interval,
+          coutdown_interval,
+          debug
+        }
+      }
+    },).mount('#app')
+  </script>
+</body>
