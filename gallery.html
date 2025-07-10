@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+  <meta charset="utf-8">
+  <title>xFly Dragon - Gallery</title>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css">
+  <style>
+    div#img-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    @media screen and (min-width: 600px) {
+      div#img-container {
+        grid-template-columns: repeat(2, 1fr 8px);
+      }
+    }
+
+    @media screen and (min-width: 1080px) {
+      div#img-container {
+        grid-template-columns: repeat(3, 1fr 8px);
+      }
+    }
+
+    div#img-container a {
+      height: auto;
+      transform: translateY(0px);
+      transition: 0.3s ease-out;
+      background: #AAAAAA77;
+      contain: content;
+      align-content: center;
+      margin-bottom: 8px;
+      border-radius: 8px;
+    }
+
+    div#img-container img {
+      width: 100%;
+    }
+
+
+    div#img-container a:hover {
+      transform: translateY(-16px);
+    }
+
+    div.hover-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      opacity: 0;
+      transition: 0.3s ease-out;
+      background-color: #000000AA;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+    }
+
+    div.hover-overlay:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="index" style="padding: 16px; box-sizing: border-box;">
+  <div class="ts header" style="width: 100%; justify-content: start; gap: 16px;">
+    <a class="unstyled" href="javascript:history.back()">[Back]</a>
+    <h3 class="unstyled">Gallery</h3>
+  </div>
+  <div class="container-large" style="overflow: auto;">
+    <div style="display: flex; flex-direction: column; justify-content:center;align-items:center;">
+      <div id="img-container"></div>
+    </div>
+  </div>
+  <script type="module">
+    const images = [
+      {
+        name: '姆嗚嗚嗚 by xFly',
+        url: 'https://pbs.twimg.com/media/GucOG_vaIAAj7Sh?format=jpg&name=large',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1938533684191416575/photo/1'
+      },
+      {
+        name: '驚喜包 by 薩克',
+        url: "https://pbs.twimg.com/media/Gir7GVnbYAIy6TM?format=jpg&name=large",
+        orgUrl: 'https://x.com/xFly_Dragon/status/1885595488118071308/photo/1'
+      }, {
+        name: '鼻頭氣 by xFly',
+        url: 'https://pbs.twimg.com/media/Gc-cvAyaAAAJDNo?format=jpg&name=large',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1859877514279256149/photo/1'
+      },
+      {
+        name: '2024生日圖 by xFly',
+        url: 'https://pbs.twimg.com/media/GU7rRLca4AAHmhD?format=jpg&name=4096x4096',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1823653880263270551/photo/1'
+      }, {
+        name: 'Silly face by kuttoyaki',
+        url: 'https://pbs.twimg.com/media/GTo-VueaEAA8VNG?format=png&name=small',
+        orgUrl: ''
+      }, {
+        name: '抱枕 by xFly',
+        url: 'https://pbs.twimg.com/media/GRtvZEXbcAAVCIZ?format=png&name=4096x4096',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1809162220632510877/photo/1'
+      }, {
+        name: '咕嗚嗚嗚 by xFly',
+        url: 'https://pbs.twimg.com/media/GLSdZsYbIAAiMKO?format=jpg&name=large',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1780220827830829430/photo/1'
+      },
+      {
+        name: '自己設定2024 by xFly',
+        url: 'https://pbs.twimg.com/media/GFK842rbAAAXGNZ?format=jpg&name=large',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1752670901513126281/photo/1',
+      },
+      {
+        name: '名牌 2023/9/21 by 瑞樹',
+        url: 'https://pbs.twimg.com/media/F6jG97gbQAAiSMo?format=jpg&name=medium',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1704831233119916160/photo/1',
+      },
+      {
+        name: '跟伊姆的漫畫委託 by 古雅 (R18) 2023/5/18',
+        url: 'https://pbs.twimg.com/media/FwZ45MwaAAAk0EA?format=jpg&name=large',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1659146445663145984/photo/1'
+      },
+      {
+        name: 'Q版委託 by 路可 2022/8/3',
+        url: 'https://pbs.twimg.com/media/FZN3fvlagAAHam3?format=jpg&name=4096x4096',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1554717836618399751/photo/1'
+      },
+      {
+        name: '可愛毛毛風委託 by DOG 2022/7/13',
+        url: 'https://pbs.twimg.com/media/FXhFFo4aQAAUIN7?format=png&name=4096x4096',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1547062782738460672/photo/1'
+      },
+
+      {
+        name: 'Skeb委託 by nekotiger 2022/7/13',
+        url: 'https://pbs.twimg.com/media/FXbxc73acAAgQX-?format=jpg&name=large',
+        orgUrl: 'https://x.com/xFly_Dragon/status/1546690611923001344/photo/1'
+      }
+    ]
+    const innerHTMLArr = [];
+    images.forEach(i => {
+      const html = `
+        <a href="${i.url}" target="_blank">
+        <img alt="${i.name}"  src="${i.url}" loading="lazy" />
+        <div class="hover-overlay">
+          <span>${i.name}</span>
+        </div>
+        </a>
+        <span></span>
+      `
+      innerHTMLArr.push(html)
+    })
+    const imgContainer = document.querySelector('div#img-container')
+    imgContainer.innerHTML = innerHTMLArr.join('');
+  </script>
+</body>
