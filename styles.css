@@ -4,6 +4,7 @@ body {
     height: 100dvh;
     background-color: transparent;
     overflow: auto;
+    line-height: 2;
 }
 
 body.index {
@@ -180,4 +181,8 @@ div.anim-container span {
 
 a {
     color: white;
+}
+
+li {
+    line-height: 1.25 !important;
 }
