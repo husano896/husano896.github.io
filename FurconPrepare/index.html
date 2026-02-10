@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+  <meta charset="utf-8">
+  <title>xFly Dragon - 獸聚行前準備！</title>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+  <meta name="description" content="你各位啊東西記得帶好">
+  <!-- Tocas UI：CSS 與元件 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css">
+  <!-- Tocas JS：模塊與 JavaScript 函式 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
+</head>
+
+<body>
+  <div style="max-width:720px; margin: auto; padding: 16px;">
+    <h2 class="ts header" style="padding-top: 32px;">獸聚行前準備！</h2>
+    <br />
+    <div class="ts message">
+      <p>出遠門之前，請務必做好萬全的準備！避免到了活動當天發生遺珠之憾！</p>
+      <p>以下準備了面向各個參加者的代辦事項，請照自己需求將各分類點開！</p>
+    </div>
+    <br />
+    <div id="details-container">
+
+    </div>
+    <span>參考資料</span>
+    <br />
+    <blockquote>
+      <a href="https://fursuiters.fandom.com/zh-tw/wiki/%E5%8F%83%E5%8A%A0%E5%A4%96%E5%9C%8B%E7%8D%B8%E8%BF%B7%E6%B4%BB%E5%8B%95%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"
+        target="_blank">
+        參加外國獸迷活動注意事項 - 毛毛大百科 [CC-BY-SA]
+      </a>
+      <br/>
+      <br/>
+      <a href="https://www.infurnity.com/guide/" target="_blank">
+        新手指南 - 獸無限 Infurnity (@shuthegreyfox / @MalicxFox) [CC-BY-SA]
+      </a>
+    </blockquote>
+    <br/>
+    <br/>
+    <a href="https://github.com/husano896/husano896.github.io/tree/main/FurconPrepare" target="_blank">
+      有任何意見嗎? 歡迎上Github提出Issue！
+    </a>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+  </div>
+  <script>
+    /**
+     * @type {Array<{
+     *    name: string,
+     *    defaultOpen: boolean,
+     *    children: Array<{
+     *      name: string;
+     *      desc?: string;
+     *    }>
+     * }>}
+     */
+    const data = [
+      {
+        name: '一般參加者',
+        defaultOpen: true,
+        children: [
+          {
+            name: '足夠的換洗衣物',
+            desc: '一般準備天數+1套衣服即可。'
+          },
+          {
+            name: '身分證名文件',
+            desc: '例如身分證、健保卡、駕照或護照'
+          },
+          {
+            name: '現金',
+            desc: '請準備足夠的交通費及伙食費，若有購買商品需求請額外多準備。'
+          },
+          {
+            name: '提款卡'
+          },
+          {
+            name: '鑰匙'
+          },
+          {
+            name : '充電器',
+            desc: '推薦購買自帶USB功能的延長線或分叉延長線，且功率為65W以上。'
+          },
+          {
+            name: '行動電源',
+            desc: '容量10000的行動電源約可充飽手機2~3次。'
+          },
+          {
+            name: '名牌',
+            desc: '讓大家好好的認識你！'
+          },
+          {
+            name: '名片',
+            desc: '以利後續在社交媒體上繼續交流！'
+          },
+          {
+            name: '交通方式',
+            desc: '例如公車、火車、高鐵、飛機的機票。'
+          },
+          {
+            name: '活動報名證明',
+            desc: '通常會將報名資料寄到你的電子信箱，且附帶QR Code。'
+          }
+        ]
+      },
+      {
+        name: '獸裝扮演者',
+        children: [
+          {name: '毛頭'},
+          {name: '毛手'},
+          {name: '毛腳', desc: '--意念Tag @app3zero--'},
+          {name: '毛內襯 / 枕頭'},
+          {name: '毛尾巴 (半毛/尾巴外掛全毛)'},
+          {
+            name: '緊身衣',
+            desc: `
+            至少攜帶天數+1的緊身衣即可。
+            請注意飯店或飯店周圍有無洗衣機服務，可視情況增減件數。
+            `
+          },
+          {
+            name: '風扇',
+            desc: '若為更換電池式，建議準備兩顆2200mah以上電池！'
+          },
+          {
+            name: '織物清潔劑 / 酒精 / 咻咻'
+          }
+        ]
+      },
+      {
+        name: '攝影師',
+        children: [
+          {name: '相機'},
+          {
+            name: '記憶卡',
+            desc: `
+              確認空間是否足夠
+              確認是否要清理前次拍攝的照片
+              --小赤不要再格式化記憶卡了--
+            `
+          },
+          {name: '鏡頭 (單眼相機以上適用)'},
+          {name: '相機電池'},
+          {name: '噴頭'}
+        ]
+      },
+      {
+        name: '國外參加者',
+        children: [
+          {
+            name: '護照',
+            desc: '極重要！沒有護照你就出不了國回不了家了！'
+          },
+          {
+            name: '護照的有效期限',
+            desc: '請確保效期至少大於半年！'
+          },
+          {
+            name: '機票',
+            desc: '當然你也可以現買???(意念Tag框框)'
+          },
+          {
+            name: '旅遊不便險',
+            desc: '當你的航班因故延遲或取消時可獲得補償！'
+          },
+          {
+            name: 'eSIM',
+            desc: '請依用量選擇用量型或天數型，同時部分國家有用量公平使用限制。'
+          }
+        ]
+      }
+    ]
+    /**
+     * 
+     * @param {HTMLElement} containerEl
+     * @param {Array<{
+     *    name: string,
+     *    defaultOpen: boolean,
+     *    children: Array<{
+     *      name: string;
+     *      desc?: string;
+     *    }>
+     * }>} data
+     */
+    function GenerateElementsFromData(containerEl, data) {
+
+      const headerTemplate = (name) => `
+      <h3 class="ts dividing header">${name}</h3>
+      `
+      const checkBoxTemplate = (name, id) => `
+      <div class="ts toggle checkbox">
+          <input type="checkbox" id="${id}">
+          <label for="${id}">${name}</label>
+      </div>
+      `
+
+      const descriptionTemplate = (desc) => (
+        desc ? `
+        <ul style="margin-left: 2.5rem;">
+          ${desc.trim().split('\n').map(d => `<li>${d.trim()}</li>`).join('')}
+        </ul>
+      ` : '')
+      const selectionsElHTML = data.map((d, indexParant) => {
+
+        const childrenElHTML = d.children.map((c, indexChild) => `
+          ${checkBoxTemplate(c.name, `${indexParant}-${indexChild}`)}
+          ${descriptionTemplate(c.desc)}
+          ${c.desc ? '' :'<br/><br/>'}
+        `).join('')
+
+        return `
+          <details class="ts accordion" ${d.defaultOpen ? 'open' : ''} >
+            <summary><i class="dropdown icon"></i>${d.name}</summary>
+            ${childrenElHTML}
+          </details>
+          <div class="ts divider"></div>
+          <br/><br/>
+        `
+      }).join('');
+      containerEl.innerHTML = selectionsElHTML;
+    }
+
+    GenerateElementsFromData(
+      document.querySelector('div#details-container'),
+      data
+    );
+  </script>
+</body>
+
+</html>
