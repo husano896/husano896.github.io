@@ -31,21 +31,21 @@
         target="_blank">
         參加外國獸迷活動注意事項 - 毛毛大百科 [CC-BY-SA]
       </a>
-      <br/>
-      <br/>
+      <br />
+      <br />
       <a href="https://www.infurnity.com/guide/" target="_blank">
         新手指南 - 獸無限 Infurnity (@shuthegreyfox / @MalicxFox) [CC-BY-SA]
       </a>
     </blockquote>
-    <br/>
-    <br/>
+    <br />
+    <br />
     <a href="https://github.com/husano896/husano896.github.io/tree/main/FurconPrepare" target="_blank">
       有任何意見嗎? 歡迎上Github提出Issue！
     </a>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
   <script>
     /**
@@ -93,7 +93,7 @@
             name: '鑰匙'
           },
           {
-            name : '充電器',
+            name: '充電器',
             desc: '推薦購買自帶USB功能的延長線或分叉延長線，至少三孔且總功率為65W以上。'
           },
           {
@@ -121,17 +121,22 @@
       {
         name: '獸裝扮演者',
         children: [
-          {name: '毛頭'},
-          {name: '毛手'},
-          {name: '毛腳', desc: '--意念Tag @app3zero--'},
-          {name: '毛內襯 / 枕頭'},
-          {name: '毛尾巴 (半毛/尾巴外掛全毛)'},
+          { name: '毛頭' },
+          { name: '毛手' },
+          { name: '毛腳', desc: '--意念Tag @app3zero--' },
+          { name: '毛內襯 / 枕頭' },
+          { name: '毛尾巴 (半毛/尾巴外掛全毛)' },
+          { name: '腰帶', desc: '尾巴使用' },
+          { name: '頭套', desc: '因不大，可多準備幾個，通常與緊身衣褲同樣件數。' },
           {
             name: '緊身衣',
             desc: `
             至少攜帶天數+1的緊身衣即可。
-            請注意飯店或飯店周圍有無洗衣機服務，可視情況增減件數。
-            `
+            請注意飯店或飯店周圍有無洗衣機服務，可視情況增減件數。`
+          },
+          {
+            name: '緊身褲',
+            desc: '同上'
           },
           {
             name: '風扇',
@@ -145,7 +150,7 @@
       {
         name: '攝影師',
         children: [
-          {name: '相機'},
+          { name: '相機' },
           {
             name: '記憶卡',
             desc: `
@@ -154,15 +159,15 @@
               --小赤不要再格式化記憶卡了--
             `
           },
-          {name: '鏡頭 (單眼相機以上適用)'},
-          {name: '相機電池'},
-          {name: '噴頭'},
-          {name: '持續燈', desc: '記得充電'},
-          {name: '閃燈', desc: '也記得充電'},
-          {name: '燈架'},
-          {name: '穩定器', desc: '還是要記得充電'},
-          {name: '轉接環'},
-          {name: '柔光罩'},
+          { name: '鏡頭 (單眼相機以上適用)' },
+          { name: '相機電池' },
+          { name: '噴頭' },
+          { name: '持續燈', desc: '記得充電' },
+          { name: '閃燈', desc: '也記得充電' },
+          { name: '腳架或穩定器', desc: '還是要記得充電' },
+          { name: '燈架' },
+          { name: '鏡頭轉接環', desc: '例如Sony接環轉Canon, Nikon等' },
+          { name: '柔光罩' },
         ]
       },
       {
@@ -182,13 +187,17 @@
           },
           {
             name: '旅遊不便險',
-            desc: 
-            `當你的航班因故延遲或取消時可獲得補償！
+            desc:
+              `當你的航班因故延遲或取消時可獲得補償！
 時間通常為出發時間到回國之日結束時的午夜12點。`
           },
           {
-            name: 'eSIM',
-            desc: '請依用量選擇用量型或天數型，同時部分國家有用量公平使用限制。'
+            name: 'eSIM / 流量型網卡 / 原號漫遊',
+            desc:
+              `請依用量選擇用量型或天數型，同時部分國家有用量公平使用限制。
+eSIM需於出發前掃描並於有網路的狀態下啟用。
+開通時間通常從掃描 QR Code 安裝並「連上當地網路」那一刻起計算。`
+
           },
           {
             name: '萬國變壓器',
@@ -232,7 +241,7 @@
         const childrenElHTML = d.children.map((c, indexChild) => `
           ${checkBoxTemplate(c.name, `${indexParant}-${indexChild}`)}
           ${descriptionTemplate(c.desc)}
-          ${c.desc ? '' :'<br/><br/>'}
+          ${c.desc ? '' : '<br/><br/>'}
         `).join('')
 
         return `
